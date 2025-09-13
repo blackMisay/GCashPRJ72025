@@ -19,9 +19,9 @@ public class WalletService {
             sender.getWallet().addTransaction(t1);
             receiver.getWallet().addTransaction(t2);
 
-            System.out.println("✅ Money sent successfully!");
+            System.out.println("Money sent successfully!");
         } else {
-            System.out.println("❌ Insufficient balance!");
+            System.out.println("Insufficient balance!");
         }
     }
 
@@ -29,9 +29,9 @@ public class WalletService {
         if (user.getWallet().deductBalance(amount)) {
             Transaction t = new Transaction("Bill Payment", amount, "Paid to " + biller);
             user.getWallet().addTransaction(t);
-            System.out.println("✅ Bill paid successfully!");
+            System.out.println("Bill paid successfully!");
         } else {
-            System.out.println("❌ Not enough balance!");
+            System.out.println("Not enough balance!");
         }
     }
 
