@@ -8,7 +8,7 @@ public class Wallet {
     private List<Transaction> transactions;
 
     public Wallet() {
-        this.balance = 1000.0; // Default starting balance
+        this.balance = 0;
         this.transactions = new ArrayList<>();
     }
 
