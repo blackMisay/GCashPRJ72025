@@ -42,4 +42,11 @@ public class WalletService {
                 .sorted(Comparator.comparing(Transaction::getTimestamp).reversed())
                 .forEach(System.out::println);
     }
+
+    public void cashIn(User user, double amount) {
+        user.getWallet().addBalance(amount);
+        Transaction t = new Transaction("Cash In", amount, "Deposit via Cash-in");
+        user.getWallet().addTransaction(t);
+        System.out.println("Cash in successful!");
+    }
 }

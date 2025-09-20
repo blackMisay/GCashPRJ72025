@@ -17,6 +17,7 @@ public class Main {
                 System.out.println("\n=== GCash CLI ===");
                 System.out.println("[1] Register");
                 System.out.println("[2] Login");
+                System.out.println("[3] CashIn");
                 System.out.println("[0] Exit");
                 System.out.print("Choose: ");
                 int choice = scanner.nextInt();
@@ -25,6 +26,7 @@ public class Main {
                 switch (choice) {
                     case 1 -> handleRegister();
                     case 2 -> handleLogin();
+                    case 3 -> handleCashIn();
                     case 0 -> System.exit(0);
                 }
             } else {
@@ -39,7 +41,7 @@ public class Main {
                 scanner.nextLine();
 
                 switch (choice) {
-                    case 1 -> System.out.println("Balance: ₱" + currentUser.getWallet().getBalance());
+                    case 1 -> System.out.println("Balance: " + currentUser.getWallet().getBalance());
                     case 2 -> handleSendMoney();
                     case 3 -> handlePayBills();
                     case 4 -> walletService.showTransactionHistory(currentUser, txn -> true);
@@ -100,5 +102,26 @@ public class Main {
         scanner.nextLine();
 
         walletService.payBill(currentUser, biller, amount);
+    }
+
+    private static void handleCashIn() {
+        System.out.print("Enter the mobile number: ");
+        String uname = scanner.nextLine();
+        System.out.print("Enter amount to cash in: ");
+        double amount = scanner.nextDouble();
+        scanner.nextLine();
+
+        if (amount <= 0) {
+            System.out.println("Invalid amount.");
+            return;
+        }
+
+        User user = AuthenticationService.findUser(uname);
+        if (user != null) {
+            walletService.cashIn(user, amount);
+            System.out.println("Cash in successful! New balance: " + user.getWallet().getBalance());
+        } else {
+            System.out.println("Mobile number not found.");
+        }
     }
 }
